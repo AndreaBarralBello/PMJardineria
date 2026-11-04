@@ -1,6 +1,7 @@
 package com.example.tiendajardineria;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class listaProductosAdaptador extends BaseExpandableListAdapter {
     HashMap<String, List <Producto> >categoriaProducto = new HashMap<>();
     List <String> categorias = new ArrayList<>();
 
+
     //GROUP: categorías
     //CHILDREN: productos
 
@@ -27,11 +29,13 @@ public class listaProductosAdaptador extends BaseExpandableListAdapter {
 
         //la lista de categorías es la lista formada por las claves del HashMap
         categorias = new ArrayList<>(categoriaProducto.keySet());
+        Log.i("andrea", categorias.toString());
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         //en el grupo i, un objeto concreto
+
         return categoriaProducto.get(categorias.get(groupPosition)).get(childPosition);
     }
 
@@ -57,7 +61,7 @@ public class listaProductosAdaptador extends BaseExpandableListAdapter {
     @Override
     public Object getGroup(int groupPosition) {
         //nombre de la clave
-        return categoriaProducto.keySet().toArray()[groupPosition];
+        return categorias.get(groupPosition);
     }
 
     @Override
@@ -86,9 +90,9 @@ public class listaProductosAdaptador extends BaseExpandableListAdapter {
         }
 
         TextView tvCategoria = convertView.findViewById(R.id.tvCategorias);
-        tvCategoria.setText(categorias.get(groupPosition));
+        tvCategoria.setText(nombreCategoria);
 
-        return null;
+        return convertView;
     }
 
     @Override

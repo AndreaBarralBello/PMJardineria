@@ -17,10 +17,15 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     ExpandableListView selector;
+    HashMap <String, Producto> categoriaProducto = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,28 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONArray jsonArray) {
                         //ver si carga el array
                         Log.d("Andrea", jsonArray.toString());
+
+                        //recorro el array y meto los productos en mi hashmap
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            //cada objeto
+                            try {
+                                JSONObject producto = jsonArray.getJSONObject(i);
+
+                                //cada producto
+                                categoriaProducto.put(producto.getString("categoria"),
+
+                                    new Producto (
+                                            producto.getString("nombre"),
+                                            producto.getString("descripcion"),
+                                            producto.getString("precio"),
+                                            //foto
+                                            null
+                                    )
+                                );
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
 
                     }
                 },
