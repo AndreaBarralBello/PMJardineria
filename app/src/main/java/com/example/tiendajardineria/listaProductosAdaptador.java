@@ -46,7 +46,22 @@ public class listaProductosAdaptador extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        return null;
+        Log.i("Andrea","Inflando el producto");
+        Producto producto = (Producto) getChild(groupPosition,childPosition);
+        if(convertView==null){
+            LayoutInflater inflater= (LayoutInflater)  parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.lista_productos,null);
+        }
+        TextView tvNombre = convertView.findViewById(R.id.tvNombre);
+        TextView tvPrecio = convertView.findViewById(R.id.tvPrecio);
+        TextView tvDescripcion = convertView.findViewById(R.id.tvDescripcion);
+
+        tvNombre.setText(producto.getNombre());
+        tvDescripcion.setText(producto.getDescripcion());
+        tvPrecio.setText(producto.getPrecio());
+
+        return convertView;
+
     }
 
     @Override

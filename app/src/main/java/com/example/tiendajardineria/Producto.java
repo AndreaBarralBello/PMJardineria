@@ -15,6 +15,10 @@ public class Producto {
         return urlFoto;
     }
 
+    public Producto(String id) {
+        this.id = id;
+    }
+
     public void setUrlFoto(String urlFoto) {
         this.urlFoto = urlFoto;
     }
